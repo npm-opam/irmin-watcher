@@ -1,0 +1,69 @@
+{
+    "name": "irmin-watcher-actual",
+    "exportedEnvVars": {
+        "CAML_LD_LIBRARY_PATH": {
+            "global": true,
+            "resolveAsRelativePath": true,
+            "globalCollisionBehavior": "joinPath",
+            "val": "./_build/ocamlfind/lib/stublibs"
+        },
+        "irmin_watcher_enable": {
+            "global": true,
+            "globalCollisionBehavior": "clobber",
+            "val": "enable"
+        },
+        "irmin_watcher_installed": {
+            "global": true,
+            "globalCollisionBehavior": "clobber",
+            "val": "true"
+        },
+        "FINDLIB": {
+            "global": true,
+            "resolveAsRelativePath": true,
+            "globalCollisionBehavior": "joinPath",
+            "val": "./_build/ocamlfind/lib"
+        },
+        "irmin_watcher_version": {
+            "global": true,
+            "globalCollisionBehavior": "clobber",
+            "val": "0.2.0"
+        },
+        "version": {
+            "global": true,
+            "globalCollisionBehavior": "clobber",
+            "val": "0.2.0"
+        },
+        "PATH": {
+            "global": true,
+            "resolveAsRelativePath": true,
+            "globalCollisionBehavior": "joinPath",
+            "val": "./_build/ocamlfind/bin"
+        }
+    },
+    "version": "0.2.0",
+    "dependencies": {
+        "@opam-alpha/astring": "*",
+        "@opam-alpha/fmt": "*",
+        "@opam-alpha/ocb-stubblr": "*",
+        "@opam-alpha/alcotest": "*",
+        "@opam-alpha/topkg": "*",
+        "@opam-alpha/ocamlfind": "*",
+        "@opam-alpha/logs": "*",
+        "dependency-env": "*",
+        "substs": "https://github.com/yunxing/substs.git",
+        "@opam-alpha/ocamlbuild": "*",
+        "@opam-alpha/osx-fsevents": "*",
+        "@opam-alpha/mtime": "*",
+        "@opam-alpha/inotify": "*",
+        "@opam-alpha/cppo": "*",
+        "@opam-alpha/lwt": "*",
+        "nopam": "*",
+        "opam-installer-bin": "https://github.com/yunxing/opam-installer-bin.git"
+    },
+    "scripts": {
+        "postinstall": "eval $(dependencyEnv) && nopam && ocaml pkg/pkg.ml build --tests false --pinned \"false\" --with-fsevents ${osx_fsevents_installed:-false} --with-inotify ${inotify_installed:-false} && (opam-installer --prefix=$opam_prefix || true)"
+    },
+    "peerDependencies": {
+        "@opam-alpha/ocaml": ">= 4.02.0"
+    }
+}
